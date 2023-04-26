@@ -1,0 +1,4 @@
+* @udemyexamplenik
+*.js @udemyexamplenik
+*.yml @udemyexamplenik
+/public/ @udemyexamplenik
