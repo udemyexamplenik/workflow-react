@@ -18,7 +18,8 @@ jobs :
         with:
           path: ~/.npm
           key : ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json')}} #to restore the cache
-          restore-key :
+          restore-keys : |
+            ${{ runner.os }}-node-
       - name : Use different node version
         uses : actions/setup-node@v1
         with :
@@ -28,9 +29,20 @@ jobs :
       - run : npm test -- --coverage
         env :
           CI : true
+      - name : Upload Test Coverage 
+        uses : actions/upload-artifact@v1
+        with:
+          name : code-coverage
+          path : coverage
       - name : Build Project
         if : github.event_name == 'push'
         run : npm run build
+      - name : Upload Build folder 
+        if : github.event_name == 'push'
+        uses : actions/upload-artifact@v1
+        with:
+          name : build
+          path : build
       - run : npm install -g surge
       - run : surge
       - name : Deploy to Staging
