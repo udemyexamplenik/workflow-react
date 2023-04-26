@@ -1,17 +1,17 @@
-name: Check before merging into develop branch
+name : Check before merging into develop branch
 
-on: 
-  pull_request:
+on : 
+  pull_request :
    branches : [develop]
 
-jobs:
+jobs :
   Check-before-merging:
     runs-on : ubuntu-latest
     steps : 
-      - uses: actions/checkout@v2
-      - name: Use different node version
-        uses: actions/setup-node@v1
-        with:
+      - uses : actions/checkout@v2
+      - name : Use different node version
+        uses : actions/setup-node@v1
+        with :
           node-version : "12.x"
       - run : npm ci
       - run : npm run format:check
